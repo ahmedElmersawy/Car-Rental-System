@@ -27,6 +27,7 @@ app.post('/addCar', async (req, res) => {
         const result = await addCar(plate_id, model, color, rent_price, car_status);
         res.status(201).send(result);
     } catch (err) {
+        console.error('Error adding car:', err.message);
         res.status(500).send(err.message);
     }
 });
