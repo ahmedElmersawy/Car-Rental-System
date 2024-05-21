@@ -23,8 +23,8 @@ app.use(express.json());
 
 app.post('/addCar', async (req, res) => {
     try {
-        const { plate_id, model, color, rent_price, car_status } = req.body;
-        const result = await addCar(plate_id, model, color, rent_price, car_status);
+        const { plate_id, model, color, rent_price } = req.body;
+        const result = await addCar(plate_id, model, color, rent_price);
         res.status(201).send(result);
     } catch (err) {
         console.error('Error adding car:', err.message);

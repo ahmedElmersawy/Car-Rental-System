@@ -6,7 +6,6 @@ CREATE TABLE Car (
     model VARCHAR(50),
     color VARCHAR(20),
     rent_price DECIMAL(10, 2),
-    car_status VARCHAR(20),
     PRIMARY KEY (plate_id)
 );
 
