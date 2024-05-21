@@ -2,10 +2,7 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:8080';
 
-export const addCar = (car) => {
-    //console.log('api url', API_URL)
-    axios.post(`${API_URL}/addCar`, car)
-};
+export const addCar = (car) => axios.post(`${API_URL}/addCar`, car);
 export const addRenter = (renter) => axios.post(`${API_URL}/addRenter`, renter);
 export const addPayment = (payment) => axios.post(`${API_URL}/addPayment`, payment);
 export const addCarOwner = (carOwner) => axios.post(`${API_URL}/addCarOwner`, carOwner);
