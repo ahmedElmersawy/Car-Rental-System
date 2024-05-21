@@ -181,6 +181,13 @@ app.get('/getPaymentsByRenterPhone/:renter_phone_number', async (req, res) => {
     }
 });
 
+app.use(function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3001'); // Change to match your port
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+});
+
+
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Something broke!');

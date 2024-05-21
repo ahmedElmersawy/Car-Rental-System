@@ -9,10 +9,11 @@ function FormCar() {
     const [rentPrice, setRentPrice] = useState('');
     const [carStatus, setCarStatus] = useState('');
     const [message, setMessage] = useState('');
-
+console.log('here ia ma')
     const handleSubmit = async (e) => {
         e.preventDefault();
         const car = { plate_id: plateId, model, color, rent_price: rentPrice, car_status: carStatus };
+        
         try {
             await addCar(car);
             setMessage('Car added successfully!');

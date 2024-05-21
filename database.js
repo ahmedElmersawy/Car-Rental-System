@@ -52,7 +52,7 @@ async function updateCarStatus(plate_id, car_status) {
 }
 
 async function getAvailableCars() {
-    const query = 'SELECT * FROM Car WHERE car_status = "Available"';
+    const query = 'SELECT * FROM Car WHERE car_status = "available"';
     const [result] = await pool.query(query);
     return result;
 }
