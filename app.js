@@ -1,3 +1,4 @@
+import cors from 'cors'
 import express from 'express';
 import {
     addCar,
@@ -18,13 +19,15 @@ import {
 } from './database.js';
 
 const app = express();
+app.use(cors());
 
 app.use(express.json());
 
 app.post('/addCar', async (req, res) => {
     try {
-        const { plate_id, model, color, rent_price } = req.body;
-        const result = await addCar(plate_id, model, color, rent_price);
+        console.log("-----");
+        const { plate_id, model, color, rent_price, car_status } = req.body;
+        const result = await addCar(plate_id, model, color, rent_price, car_status);
         res.status(201).send(result);
     } catch (err) {
         console.error('Error adding car:', err.message);
@@ -180,6 +183,8 @@ app.get('/getPaymentsByRenterPhone/:renter_phone_number', async (req, res) => {
         res.status(500).send(err.message);
     }
 });
+
+
 
 app.use((err, req, res, next) => {
     console.error(err.stack);

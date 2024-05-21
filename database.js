@@ -9,8 +9,8 @@ const pool = mysql.createPool({
     database: process.env.MYSQL_DATABASE
 }).promise();
 
-async function addCar(plate_id, model, color, rent_price) {
-    const query = 'INSERT INTO Car (plate_id, model, color, rent_price) VALUES (?, ?, ?, ?)';
+async function addCar(plate_id, model, color, rent_price, car_status) {
+    const query = 'INSERT INTO Car (plate_id, model, color, rent_price, car_status) VALUES (?, ?, ?, ?, ?)';
     const [result] = await pool.query(query, [plate_id, model, color, rent_price, car_status]);
     return result;
 }
