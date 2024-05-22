@@ -2,7 +2,7 @@ let lastScrollTop = 0;
 const topHeader = document.querySelector('.top-header');
 const header = document.querySelector('.header'); // Use querySelector for class
 
-window.addEventListener('scroll', function() {
+window.addEventListener('scroll', function () {
   let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
   if (scrollTop > lastScrollTop) {
     // Scrolling down

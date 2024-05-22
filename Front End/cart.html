@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="stylesheet" href="style.css"> <!-- Ensure this path is correct -->
+</head>
+
+<body>
+    <section class="cart-container">
+        <h2>Your Cart</h2>
+        <div id="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p>Your cart is empty</p>';
+            } else {
+                cart.forEach(car => {
+                    const cartItem = document.createElement('div');
+                    cartItem.classList.add('pro');
+                    cartItem.innerHTML = `
+                        <img src="${car.image}" alt="${car.name}">
+                        <div class="des">
+                            <span>${car.name}</span>
+                            <div class="star">
+                                ${generateStars(car.rating)}
+                            </div>
+                            <h4>$${car.price} Per Day</h4>
+                        </div>
+                    `;
+                    cartItemsContainer.appendChild(cartItem);
+                });
+            }
+        });
+
+        function generateStars(rating) {
+            let stars = '';
+            for (let i = 0; i < rating; i++) {
+                stars += '<i class="fas fa-star"></i>';
+            }
+            return stars;
+        }
+    </script>
+</body>
+
+</html>

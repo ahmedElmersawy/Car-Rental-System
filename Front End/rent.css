@@ -1,5 +1,6 @@
 /* General Styles */
-body, html {
+body,
+html {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
@@ -33,7 +34,8 @@ body, html {
     transition: top 0.3s ease;
     position: fixed;
     width: 100%;
-    top: 40px; /* Height of the .top-header */
+    top: 40px;
+    /* Height of the .top-header */
     z-index: 999;
 }
 
@@ -62,7 +64,8 @@ body, html {
     font-size: 18px;
 }
 
-.nav_bar a.active, .nav_bar a:hover {
+.nav_bar a.active,
+.nav_bar a:hover {
     color: #f4f4f4;
 }
 
@@ -206,7 +209,8 @@ footer {
     margin: 0 0 10px 0;
 }
 
-.footer-section p, .footer-section ul {
+.footer-section p,
+.footer-section ul {
     margin: 0;
 }
 
