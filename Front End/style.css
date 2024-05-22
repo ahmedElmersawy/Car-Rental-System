@@ -132,7 +132,7 @@ body{
 }
 
 .hero{
-    background-image: url(pics/lambo.jpeg);
+    background-image: url();
     height:90vh;
     width:100%;
     background-size: cover;
