@@ -1,3 +1,4 @@
+drop DATABASE CarRental;
 CREATE DATABASE CarRental;
 USE CarRental;
 
@@ -6,6 +7,7 @@ CREATE TABLE Car (
     model VARCHAR(50),
     color VARCHAR(20),
     rent_price DECIMAL(10, 2),
+    car_status varchar(20),
     PRIMARY KEY (plate_id)
 );
 
@@ -49,7 +51,7 @@ CREATE TABLE Cart (
 
 CREATE TABLE CarRenter (
     car_plate_id VARCHAR(10),
-    renter_id INT,
+    renter_id char(10),
     PRIMARY KEY (car_plate_id, renter_id),
     FOREIGN KEY (car_plate_id) REFERENCES Car(plate_id),
     FOREIGN KEY (renter_id) REFERENCES Renter(renter_id)
