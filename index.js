@@ -10,7 +10,6 @@ const logger = morgan(
   ":method :url :status :res[content-length] - :response-time ms"
 );
 
-// deklarasi port dan connect port
 const port = process.env.PORT || 8000;
 
 server.listen(port, () => {
@@ -22,7 +21,6 @@ const corsOptions = {
   origin: [
     "http://localhost:3000",
     "http://localhost:8080",
-    "https://vehicle-rental-react.vercel.app",
   ],
   allowedHeader: "x-access-token",
   method: ["GET", "POST", "PATCH", "DETELE", "OPTIONS"],
