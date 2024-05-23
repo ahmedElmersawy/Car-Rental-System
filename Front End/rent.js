@@ -27,6 +27,12 @@ document.addEventListener("DOMContentLoaded", function () {
             const email = loginForm.email.value;
             const password = loginForm.password.value;
             console.log("Login - Email:", email, "Password:", password);
+            if (email === "user@example.com" && password === "password") {
+                localStorage.setItem('loggedIn', 'true');
+                window.location.href = 'index.html';
+            } else {
+                alert("Invalid credentials. Please try again.");
+            }
             // Handle login logic here
         });
     }
@@ -55,3 +61,35 @@ function addToCart(event) {
     localStorage.setItem('cart', JSON.stringify(cart));
     window.location.href = 'cart.html';
 }
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const topNavBar = document.getElementById('topNavBar');
+
+    function updateNavBar() {
+        topNavBar.innerHTML = ''; // Clear existing content
+
+        if (localStorage.getItem('loggedIn') === 'true') {
+            // User is logged in
+            topNavBar.innerHTML = `
+                    <li><a href="#" id="logoutButton">Log Out</a></li>
+                    <li><a href="#">FAQ</a></li>
+                `;
+
+            document.getElementById('logoutButton').addEventListener('click', function (e) {
+                e.preventDefault();
+                localStorage.removeItem('loggedIn');
+                updateNavBar(); // Update the navbar after logging out
+            });
+        } else {
+            // User is not logged in
+            topNavBar.innerHTML = `
+                    <li><a href="login.html">Sign In</a></li>
+                    <li><a href="signup.html">Sign Up</a></li>
+                    <li><a href="#">FAQ</a></li>
+                `;
+        }
+    }
+
+    updateNavBar(); // Initial call to set the navbar based on login status
+});

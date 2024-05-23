@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <link rel="stylesheet" href="style.css"> <!-- Ensure this path is correct -->
+</head>
+
+<body>
+    <div class="payment-container">
+        <h2>Payment</h2>
+        <div id="total-price">
+            <!-- Total price will be dynamically added here -->
+        </div>
+        <form id="paymentForm">
+            <label for="cardName">Name on Card</label>
+            <input type="text" id="cardName" name="cardName" required>
+
+            <label for="cardNumber">Card Number</label>
+            <input type="text" id="cardNumber" name="cardNumber" required>
+
+            <label for="expDate">Expiration Date</label>
+            <input type="text" id="expDate" name="expDate" placeholder="MM/YY" required>
+
+            <label for="cvv">CVV</label>
+            <input type="text" id="cvv" name="cvv" required>
+
+            <button type="submit">Submit Payment</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const totalPriceElement = document.getElementById('total-price');
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            if (cart.length === 0) {
+                totalPriceElement.innerHTML = '<p>Your cart is empty</p>';
+            } else {
+                let total = cart.reduce((sum, item) => sum + item.price, 0);
+                totalPriceElement.innerHTML = `<p>Total Price: $${total.toFixed(2)}</p>`;
+            }
+
+            document.getElementById('paymentForm').addEventListener('submit', function (event) {
+                event.preventDefault();
+                // Handle payment logic here
+                alert('Payment submitted successfully!');
+            });
+        });
+    </script>
+</body>
+
+</html>

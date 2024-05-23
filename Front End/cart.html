@@ -6,14 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart</title>
     <link rel="stylesheet" href="style.css"> <!-- Ensure this path is correct -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- For star icons -->
 </head>
 
 <body>
     <section class="cart-container">
-        <h2>Your Cart</h2>
-        <div id="cart-items">
-            <!-- Cart items will be dynamically added here -->
-        </div>
+        <h1 id="cart-header">Your Cart </h>
+            <div id="cart-items">
+                <!-- Cart items will be dynamically added here -->
+            </div>
+            <div id="cart-actions">
+                <button id="payment-button" class="button">Proceed to Payment</button>
+            </div>
     </section>
 
     <script>
@@ -21,34 +26,57 @@
             const cartItemsContainer = document.getElementById('cart-items');
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-            if (cart.length === 0) {
-                cartItemsContainer.innerHTML = '<p>Your cart is empty</p>';
-            } else {
-                cart.forEach(car => {
-                    const cartItem = document.createElement('div');
-                    cartItem.classList.add('pro');
-                    cartItem.innerHTML = `
-                        <img src="${car.image}" alt="${car.name}">
-                        <div class="des">
-                            <span>${car.name}</span>
-                            <div class="star">
-                                ${generateStars(car.rating)}
+            function updateCart() {
+                cartItemsContainer.innerHTML = '';
+                if (cart.length === 0) {
+                    cartItemsContainer.innerHTML = '<p>Your cart is empty</p>';
+                } else {
+                    cart.forEach((car, index) => {
+                        const cartItem = document.createElement('div');
+                        cartItem.classList.add('pro');
+                        cartItem.innerHTML = `
+                            <img src="${car.image}" alt="${car.name}">
+                            <div class="des">
+                                <span>${car.name}</span>
+                                <div class="star">
+                                    ${generateStars(car.rating)}
+                                </div>
+                                <h4>$${car.price} Per Day</h4>
+                                <button class="delete-from-cart" data-index="${index}">Delete from Cart</button>
                             </div>
-                            <h4>$${car.price} Per Day</h4>
-                        </div>
-                    `;
-                    cartItemsContainer.appendChild(cartItem);
-                });
+                        `;
+                        cartItemsContainer.appendChild(cartItem);
+                    });
+                }
             }
-        });
 
-        function generateStars(rating) {
-            let stars = '';
-            for (let i = 0; i < rating; i++) {
-                stars += '<i class="fas fa-star"></i>';
+            function generateStars(rating) {
+                let stars = '';
+                for (let i = 0; i < rating; i++) {
+                    stars += '<i class="fas fa-star"></i>';
+                }
+                return stars;
             }
-            return stars;
-        }
+
+            cartItemsContainer.addEventListener('click', function (event) {
+                if (event.target.classList.contains('delete-from-cart')) {
+                    const index = event.target.getAttribute('data-index');
+                    cart.splice(index, 1);
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    updateCart();
+                }
+            });
+
+            document.getElementById('payment-button').addEventListener('click', function () {
+                if (localStorage.getItem('loggedIn') === 'true') {
+                    window.location.href = 'payment.html';
+                } else {
+                    window.location.href = 'login.html';
+                }
+            });
+
+            updateCart();
+        });
     </script>
 </body>
 
