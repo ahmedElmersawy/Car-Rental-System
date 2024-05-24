@@ -1,4 +1,3 @@
-
 let lastScrollTop = 0;
 const topHeader = document.querySelector('.top-header');
 const mainHeader = document.querySelector('.header');
@@ -17,38 +16,82 @@ window.addEventListener('scroll', function () {
     lastScrollTop = scrollTop;
 });
 
-document.addEventListener("DOMContentLoaded", function () {
+// rent.js
+// rent.js
+// document.addEventListener("DOMContentLoaded", function () {
     const loginForm = document.getElementById("loginForm");
-    const signupForm = document.getElementById("signupForm");
-
+    const submitButton = document.getElementById("sbmit");
+    console.log("--------");
     if (loginForm) {
-        loginForm.addEventListener("submit", function (event) {
+        console.log("--------");
+        submitButton.addEventListener("click", async function (event) {
             event.preventDefault();
             const email = loginForm.email.value;
             const password = loginForm.password.value;
-            console.log("Login - Email:", email, "Password:", password);
-            if (email === "user@example.com" && password === "password") {
-                localStorage.setItem('loggedIn', 'true');
-                window.location.href = 'index.html';
-            } else {
-                alert("Invalid credentials. Please try again.");
+
+            try {
+                const response = await fetch('http://localhost:8000/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('Login successful', data);
+                    // Save loggedIn status to localStorage
+                    localStorage.setItem('loggedIn', 'true');
+                    // Redirect to home page
+                    window.location.href = 'index.html';
+                } else {
+                    console.error('Login failed', response.statusText);
+                    alert('Login failed. Please check your credentials and try again.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again later.');
             }
-            // Handle login logic here
         });
     }
 
+    const signupForm = document.getElementById("signupForm");
     if (signupForm) {
-        signupForm.addEventListener("submit", function (event) {
+        signupForm.addEventListener("submit", async function (event) {
             event.preventDefault();
             const name = signupForm.name.value;
             const email = signupForm.email.value;
             const password = signupForm.password.value;
-            console.log("Sign Up - Name:", name, "Email:", email, "Password:", password);
-            // Handle signup logic here
+
+            try {
+                const response = await fetch('http://localhost:8000/auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name, email, password })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('Registration successful', data);
+                    // Handle successful registration, e.g., redirect to login page
+                    window.location.href = 'login.html';
+                } else {
+                    console.error('Registration failed', response.statusText);
+                    alert('Registration failed. Please check your details and try again.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again later.');
+            }
         });
     }
-});
+// });
+
 document.addEventListener('DOMContentLoaded', function () {
+    console.log("--------");
     document.querySelectorAll('.add-to-cart').forEach(button => {
         button.addEventListener('click', addToCart);
     });
@@ -64,6 +107,7 @@ function addToCart(event) {
 
 
 document.addEventListener('DOMContentLoaded', function () {
+    console.log("--------");
     const topNavBar = document.getElementById('topNavBar');
 
     function updateNavBar() {

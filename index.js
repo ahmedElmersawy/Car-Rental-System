@@ -17,16 +17,16 @@ server.listen(port, () => {
 });
 
 // first router
-const corsOptions = {
-  origin: [
-    "http://localhost:3000",
-    "http://localhost:8080",
-  ],
-  allowedHeader: "x-access-token",
-  method: ["GET", "POST", "PATCH", "DETELE", "OPTIONS"],
-};
+// const corsOptions = {
+//   origin: [
+//     "http://localhost:3000",
+//     "http://localhost:8080",
+//   ],
+//   allowedHeader: "x-access-token",
+//   method: ["GET", "POST", "PATCH", "DETELE", "OPTIONS"],
+// };
 
-server.use(cors(corsOptions));
+server.use(cors());
 server.use(
   express.urlencoded({
     extended: true,

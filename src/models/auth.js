@@ -149,7 +149,9 @@ const verifyPinModel = (pin) => {
 };
 
 const signIn = (body) => {
+  console.log("-------");
   return new Promise((resolve, reject) => {
+    console.log("-------");
     const { email, password } = body;
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
