@@ -18,12 +18,20 @@ window.addEventListener('scroll', function () {
 
 // rent.js
 // rent.js
+<<<<<<< HEAD
 // document.addEventListener("DOMContentLoaded", function () {
     const loginForm = document.getElementById("loginForm");
     const submitButton = document.getElementById("sbmit");
     console.log("--------");
     if (loginForm) {
         console.log("--------");
+=======
+document.addEventListener("DOMContentLoaded", function () {
+    const loginForm = document.getElementById("loginForm");
+    const submitButton = document.getElementById("sbmit");
+
+    if (loginForm) {
+>>>>>>> cbfa43db (the signup update)
         submitButton.addEventListener("click", async function (event) {
             event.preventDefault();
             const email = loginForm.email.value;
@@ -57,10 +65,15 @@ window.addEventListener('scroll', function () {
     }
 
     const signupForm = document.getElementById("signupForm");
+<<<<<<< HEAD
+=======
+
+>>>>>>> cbfa43db (the signup update)
     if (signupForm) {
         signupForm.addEventListener("submit", async function (event) {
             event.preventDefault();
             const name = signupForm.name.value;
+            const phone = signupForm.phone.value;
             const email = signupForm.email.value;
             const password = signupForm.password.value;
 
@@ -70,7 +83,11 @@ window.addEventListener('scroll', function () {
                     headers: {
                         'Content-Type': 'application/json'
                     },
+<<<<<<< HEAD
                     body: JSON.stringify({ name, email, password })
+=======
+                    body: JSON.stringify({ name, phone, email, password })
+>>>>>>> cbfa43db (the signup update)
                 });
 
                 if (response.ok) {
