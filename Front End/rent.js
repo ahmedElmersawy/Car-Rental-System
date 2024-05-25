@@ -137,3 +137,40 @@ document.addEventListener('DOMContentLoaded', function () {
 
     updateNavBar(); // Initial call to set the navbar based on login status
 });
+document.addEventListener("DOMContentLoaded", function () {
+    const carForm = document.getElementById("carForm");
+
+    if (carForm) {
+        carForm.addEventListener("submit", async function (event) {
+            event.preventDefault();
+            const formData = new FormData(carForm);
+
+            try {
+                const response = await fetch('http://localhost:8000/vehicles', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: formData
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    alert('Car added successfully!');
+                    window.location.href = 'index.html';  // Redirect to home page or any other page
+                } else {
+                    console.error('Failed to add car', response.statusText);
+                    alert('Failed to add car. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again later.');
+            }
+        });
+    }
+});
+if (homeButton) {
+    homeButton.addEventListener("click", function () {
+        window.location.href = 'index.html';
+    });
+}

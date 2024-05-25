@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Car</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="form-container">
+        <h2>Add Your Car</h2>
+        <form id="carForm" enctype="multipart/form-data">
+            <label for="model">Car Model:</label>
+            <input type="text" id="model" name="model" required>
+            <label for="rentprice">Price:</label>
+            <input type="text" id="rentprice" name="rentprice" required>
+            <label for="photo">Upload Car Photo:</label>
+            <input type="file" id="photo" name="photo" accept="image/*" required>
+            <button type="submit">Add Car</button>
+            <button id="homeButton">Back to Home</button>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="rent.js"></script>
+</body>
+
+</html>
