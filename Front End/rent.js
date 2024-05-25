@@ -174,3 +174,21 @@ if (homeButton) {
         window.location.href = 'index.html';
     });
 }
+document.getElementById('addCarForm').addEventListener('submit', async function (event) {
+    event.preventDefault();
+
+    const formData = new FormData(this);
+
+    try {
+        const response = await axios.post('/vehicles', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        alert('Car added successfully');
+        window.location.href = 'index.html';
+    } catch (error) {
+        console.error(error);
+        alert('Error adding car');
+    }
+});
