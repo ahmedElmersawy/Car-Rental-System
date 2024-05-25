@@ -89,7 +89,9 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+//-------------------------------
 
+//-------------------------------
 document.addEventListener('DOMContentLoaded', function () {
     console.log("--------");
     document.querySelectorAll('.add-to-cart').forEach(button => {
