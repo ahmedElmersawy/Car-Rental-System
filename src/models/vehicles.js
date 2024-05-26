@@ -1,5 +1,5 @@
 const mysql = require("mysql2");
-const db = require("../database/db");
+const db = require("E:/Car-Rental-System/src/database/db");
 const fs = require("fs");
 
 const addNewVehicleModel = (body, files, id) => {
@@ -754,7 +754,7 @@ const delVehicleById = (idVehicle, id) => {
 
 const deleteImages = (files) => {
   files.forEach((element) => {
-    fs.unlink(`public/img/vehicles/${element}`, (err) => {
+    fs.unlink(`E:Car-Rental-System/public/img/vehicles/${element}`, (err) => {
       if (err) {
         console.log(err);
       }
