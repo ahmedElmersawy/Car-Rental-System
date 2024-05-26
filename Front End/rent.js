@@ -229,8 +229,6 @@ function addCarToRentPage(car) {
     carList.appendChild(carElement);
 }
 
-
-//This is the new one
 document.addEventListener("DOMContentLoaded", function () {
     const vehicleGrid = document.getElementById("vehicleGrid");
 
