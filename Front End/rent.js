@@ -233,24 +233,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const vehicleGrid = document.getElementById("vehicleGrid");
 
     if (vehicleGrid) {
-        fetchAllCars();
-    }
-
-    async function fetchAllCars() {
-        try {
-            const response = await fetch('http://localhost:8000/vehicles');
-            const data = await response.json();
-
-            if (response.ok) {
-                displayCars(data.data);
-            } else {
-                console.error('Failed to fetch cars:', response.statusText);
-                alert('Failed to fetch cars. Please try again later.');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('An error occurred. Please try again later.');
-        }
+        displayCars(data.result.data); // Call the function directly with the data
     }
 
     function displayCars(cars) {
@@ -262,10 +245,10 @@ document.addEventListener("DOMContentLoaded", function () {
             carBox.innerHTML = `
                 <h2>${car.vehicle}</h2>
                 <img src="${car.image}" alt="${car.vehicle}">
-                <p>Type: ${car.type}</p>
-                <p>Location: ${car.location}</p>
+                <p>Type: ${car.types}</p> <!-- Change from 'types' to 'types' -->
+                <p>Location: ${car.name}</p> <!-- Change from 'name' to 'name' -->
                 <p>Stock: ${car.stock}</p>
-                <p>Rating: ${car.rating}</p>
+                <p>Rating: ${car.rating ? car.rating : 'N/A'}</p> <!-- Check if rating exists -->
                 <p>Price: $${car.price}</p>
                 <p>Owner: ${car.owner}</p>
             `;
