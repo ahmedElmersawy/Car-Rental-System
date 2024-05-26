@@ -4,8 +4,14 @@ const vehicleController = require("../controllers/vehicles");
 const authorize = require("../middlewares/authorize");
 const upload = require("../controllers/upload");
 
+const multer = require("multer");         var uploader = multer({
+  storage: multer.diskStorage({}),
+  limits: { fileSize: 500000 },
+});
+
 vehicleRouter.post(
   "/",
+  uploader.single("file"),
   authorize.checkToken,
   authorize.checkRenter,
   upload.uploadHandlerVehicles,
