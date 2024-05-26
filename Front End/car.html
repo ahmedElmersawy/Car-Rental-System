@@ -4,27 +4,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Car</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Add a Car</title>
 </head>
 
 <body>
-    <div class="form-container">
-        <h2>Add Your Car</h2>
-        <form id="carForm" enctype="multipart/form-data">
-            <label for="model">Car Model:</label>
-            <input type="text" id="model" name="model" required>
-            <label for="rentprice">Price:</label>
-            <input type="text" id="rentprice" name="rentprice" required>
-            <label for="photo">Upload Car Photo:</label>
-            <input type="file" id="photo" name="photo" accept="image/*" required>
-            <button type="submit">Add Car</button>
-            <button id="homeButton">Back to Home</button>
-        </form>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="rent.js"></script>
+    <h1>Add a Car</h1>
+    <form id="carForm">
+        <label for="model">Model:</label>
+        <input type="text" id="model" name="model" required><br>
+        <label for="plateNumber">Plate Number:</label>
+        <input type="text" id="plateNumber" name="plateNumber" required><br>
+        <label for="carImage">Car Image:</label>
+        <select id="carImage" name="carImage" required>
+            <option value="Pics/porsche-cayenne.jpeg">Porsche Cayenne</option>
+            <option value="Pics/f2.jpg">Mercedes G63 Larte Design</option>
+            <option value="Pics/f3.jpg">BMW 740I M</option>
+            <option value="Pics/f4.jpg">Nissan Z400 2024</option>
+            <option value="Pics/f5.jpg">Porsche 911 Turbo S Cabrio</option>
+            <option value="Pics/f6.jpg">GMC Yukon</option>
+            <option value="Pics/f7.jpg">Ferrari 296 GTB 2023</option>
+            <option value="Pics/f8.jpg">Bently Fluing Spur 2022</option>
+        </select><br>
+        <label for="price">Price Per Day:</label>
+        <input type="number" id="price" name="price" required><br>
+        <button type="submit">Add Car</button>
+    </form>
+    <button onclick="window.location.href='rent.html'">Back to Home</button>
+
+    <script>
+        document.getElementById('carForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const model = document.getElementById('model').value;
+            const plateNumber = document.getElementById('plateNumber').value;
+            const carImage = document.getElementById('carImage').value;
+            const price = document.getElementById('price').value;
+
+            const carData = { model, plateNumber, carImage, price: parseFloat(price), rating: 5 };
+
+            let cars = localStorage.getItem('cars');
+            if (cars) {
+                cars = JSON.parse(cars);
+            } else {
+                cars = [];
+            }
+            cars.push(carData);
+            localStorage.setItem('cars', JSON.stringify(cars));
+
+            alert('Car added successfully!');
+            window.location.href = 'rent.html';
+        });
+    </script>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 </html>

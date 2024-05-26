@@ -3,6 +3,7 @@ const responseHelper = require("../helpers/sendResponse");
 
 const addNewVehicle = (req, res) => {
   let { body, userInfo, files } = req;
+  console.log(files);
   const { id } = userInfo;
   vehicleModel
     .addNewVehicleModel(body, files, id)

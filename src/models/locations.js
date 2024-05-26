@@ -1,5 +1,5 @@
-const db = require("../database/db");
-
+const db = require("E:/Car-Rental-System/src/database/db");
+//E:/Car-Rental-System/
 const addNewLocationModel = (body, id) => {
   return new Promise((resolve, reject) => {
     const { name } = body;

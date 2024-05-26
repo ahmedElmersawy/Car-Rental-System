@@ -24,15 +24,17 @@ const uploadProfile = multer({
       cb(null, false);
     }
   },
-  limits: { fileSize: 1 * 1024 * 1724 }, //1,7mb
+  // limits: { fileSize: 1 * 1024 * 1724 }, //1,7mb
 }).single("image");
 
 const uploadVehicle = multer({
   storage: multer.diskStorage({
     destination: (req, res, cb) => {
+      console.log("------------")
       cb(null, "./public/img/vehicles");
     },
     filename: (req, file, cb) => {
+      console.log("-------------")
       cb(
         null,
         `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
@@ -40,6 +42,7 @@ const uploadVehicle = multer({
     },
   }),
   fileFilter: (req, file, cb) => {
+    console.log("--------")
     if (
       file.mimetype === "image/jpg" ||
       file.mimetype === "image/png" ||
@@ -50,7 +53,7 @@ const uploadVehicle = multer({
       cb(null, false);
     }
   },
-  limits: { fileSize: 1 * 1024 * 1724 }, //1,7mb
+  // limits: { fileSize: 1 * 1024 * 1724 }, //1,7mb
 }).array("images", 3);
 
 module.exports = { uploadProfile, uploadVehicle };

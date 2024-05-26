@@ -89,9 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
-//-------------------------------
 
-//-------------------------------
 document.addEventListener('DOMContentLoaded', function () {
     console.log("--------");
     document.querySelectorAll('.add-to-cart').forEach(button => {
@@ -194,3 +192,39 @@ document.getElementById('addCarForm').addEventListener('submit', async function 
         alert('Error adding car');
     }
 });
+document.addEventListener('DOMContentLoaded', function () {
+    fetch('http://localhost:8000/vehicles') // Replace with your backend API URL
+        .then(response => response.json())
+        .then(data => {
+            console.log('Received data:', data); // Log the received data
+            const cars = data.result.data; // Accessing the array of cars
+            console.log('Cars:', cars); // Log the array of cars
+            if (Array.isArray(cars)) {
+                cars.forEach(car => addCarToRentPage(car));
+            } else {
+                console.error('No cars found in the data');
+            }
+        })
+        .catch(error => console.error('Error fetching car data:', error));
+});
+
+function addCarToRentPage(car) {
+    console.log('Adding car:', car); // Log the car being added
+    const carList = document.getElementById('carList');
+    const carElement = document.createElement('div');
+    carElement.className = 'pro';
+    carElement.innerHTML = `
+        <img src="${car.image}" alt="${car.vehicle}">
+        <div class="des">
+            <span>${car.vehicle}</span>
+            <div class="star">
+                ${'<i class="fas fa-star"></i>'.repeat(car.rating)}
+            </div>
+            <h4>$${car.price} Per Day</h4>
+            <button class="add-to-cart"
+                data-car='{"name":"${car.vehicle}", "price":${car.price}, "image":"${car.image}", "rating":${car.rating}}'>Add
+                to Cart</button>
+        </div>
+    `;
+    carList.appendChild(carElement);
+}
