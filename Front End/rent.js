@@ -1,7 +1,6 @@
 let lastScrollTop = 0;
 const topHeader = document.querySelector('.top-header');
 const mainHeader = document.querySelector('.header');
-
 window.addEventListener('scroll', function () {
     let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     if (scrollTop > lastScrollTop) {
@@ -15,19 +14,16 @@ window.addEventListener('scroll', function () {
     }
     lastScrollTop = scrollTop;
 });
-
 // rent.js
 // rent.js
 document.addEventListener("DOMContentLoaded", function () {
     const loginForm = document.getElementById("loginForm");
     const submitButton = document.getElementById("sbmit");
-
     if (loginForm) {
         submitButton.addEventListener("click", async function (event) {
             event.preventDefault();
             const email = loginForm.email.value;
             const password = loginForm.password.value;
-
             try {
                 const response = await fetch('http://localhost:8000/auth/login', {
                     method: 'POST',
@@ -36,7 +32,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     },
                     body: JSON.stringify({ email, password })
                 });
-
                 if (response.ok) {
                     const data = await response.json();
                     console.log('Login successful', data);
@@ -54,7 +49,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
-
     const signupForm = document.getElementById("signupForm");
     if (signupForm) {
         signupForm.addEventListener("submit", async function (event) {
@@ -63,7 +57,6 @@ document.addEventListener("DOMContentLoaded", function () {
             const phone = signupForm.phone.value;
             const email = signupForm.email.value;
             const password = signupForm.password.value;
-
             try {
                 const response = await fetch('http://localhost:8000/auth/register', {
                     method: 'POST',
@@ -72,7 +65,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     },
                     body: JSON.stringify({ name, phone, email, password })
                 });
-
                 if (response.ok) {
                     const data = await response.json();
                     console.log('Registration successful', data);
@@ -89,14 +81,12 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
-
 document.addEventListener('DOMContentLoaded', function () {
     console.log("--------");
     document.querySelectorAll('.add-to-cart').forEach(button => {
         button.addEventListener('click', addToCart);
     });
 });
-
 function addToCart(event) {
     const car = JSON.parse(event.target.getAttribute('data-car'));
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -104,22 +94,17 @@ function addToCart(event) {
     localStorage.setItem('cart', JSON.stringify(cart));
     window.location.href = 'cart.html';
 }
-
-
 document.addEventListener('DOMContentLoaded', function () {
     console.log("--------");
     const topNavBar = document.getElementById('topNavBar');
-
     function updateNavBar() {
         topNavBar.innerHTML = ''; // Clear existing content
-
         if (localStorage.getItem('loggedIn') === 'true') {
             // User is logged in
             topNavBar.innerHTML = `
                     <li><a href="#" id="logoutButton">Log Out</a></li>
                     <li><a href="#">FAQ</a></li>
                 `;
-
             document.getElementById('logoutButton').addEventListener('click', function (e) {
                 e.preventDefault();
                 localStorage.removeItem('loggedIn');
@@ -136,123 +121,4 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     updateNavBar(); // Initial call to set the navbar based on login status
-});
-document.addEventListener("DOMContentLoaded", function () {
-    const carForm = document.getElementById("carForm");
-
-    if (carForm) {
-        carForm.addEventListener("submit", async function (event) {
-            event.preventDefault();
-            const formData = new FormData(carForm);
-
-            try {
-                const response = await fetch('http://localhost:8000/vehicles', {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
-                    },
-                    body: formData
-                });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    alert('Car added successfully!');
-                    window.location.href = 'index.html';  // Redirect to home page or any other page
-                } else {
-                    console.error('Failed to add car', response.statusText);
-                    alert('Failed to add car. Please try again.');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('An error occurred. Please try again later.');
-            }
-        });
-    }
-});
-if (homeButton) {
-    homeButton.addEventListener("click", function () {
-        window.location.href = 'index.html';
-    });
-}
-document.getElementById('addCarForm').addEventListener('submit', async function (event) {
-    event.preventDefault();
-
-    const formData = new FormData(this);
-
-    try {
-        const response = await axios.post('/vehicles', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        });
-        alert('Car added successfully');
-        window.location.href = 'index.html';
-    } catch (error) {
-        console.error(error);
-        alert('Error adding car');
-    }
-});
-document.addEventListener('DOMContentLoaded', function () {
-    fetch('http://localhost:8000/vehicles') // Replace with your backend API URL
-        .then(response => response.json())
-        .then(data => {
-            console.log('Received data:', data); // Log the received data
-            const cars = data.result.data; // Accessing the array of cars
-            console.log('Cars:', cars); // Log the array of cars
-            if (Array.isArray(cars)) {
-                cars.forEach(car => addCarToRentPage(car));
-            } else {
-                console.error('No cars found in the data');
-            }
-        })
-        .catch(error => console.error('Error fetching car data:', error));
-});
-
-function addCarToRentPage(car) {
-    console.log('Adding car:', car); // Log the car being added
-    const carList = document.getElementById('carList');
-    const carElement = document.createElement('div');
-    carElement.className = 'pro';
-    carElement.innerHTML = `
-        <img src="${car.image}" alt="${car.vehicle}">
-        <div class="des">
-            <span>${car.vehicle}</span>
-            <div class="star">
-                ${'<i class="fas fa-star"></i>'.repeat(car.rating)}
-            </div>
-            <h4>$${car.price} Per Day</h4>
-            <button class="add-to-cart"
-                data-car='{"name":"${car.vehicle}", "price":${car.price}, "image":"${car.image}", "rating":${car.rating}}'>Add
-                to Cart</button>
-        </div>
-    `;
-    carList.appendChild(carElement);
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-    const vehicleGrid = document.getElementById("vehicleGrid");
-
-    if (vehicleGrid) {
-        displayCars(data.result.data); // Call the function directly with the data
-    }
-
-    function displayCars(cars) {
-        vehicleGrid.innerHTML = '';
-
-        cars.forEach(car => {
-            const carBox = document.createElement('div');
-            carBox.classList.add('car-box');
-            carBox.innerHTML = `
-                <h2>${car.vehicle}</h2>
-                <img src="${car.image}" alt="${car.vehicle}">
-                <p>Type: ${car.types}</p> <!-- Change from 'types' to 'types' -->
-                <p>Location: ${car.name}</p> <!-- Change from 'name' to 'name' -->
-                <p>Stock: ${car.stock}</p>
-                <p>Rating: ${car.rating ? car.rating : 'N/A'}</p> <!-- Check if rating exists -->
-                <p>Price: $${car.price}</p>
-                <p>Owner: ${car.owner}</p>
-            `;
-            vehicleGrid.appendChild(carBox);
-        });
-    }
 });
